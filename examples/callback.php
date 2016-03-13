@@ -92,18 +92,43 @@ if ($key !== $expectedKey) exit("Wrong key");
 
 $commands = array(); // for older PHP :/
 
-switch ($code) {
-	case 'vip_1':
-		$commands[]	= 'say §2Hrac :nick si kúpil VIP 1'; 	// :nick sa automatický nahradí za premennú nick, ktorú zadal hráč
-															// Môžete taktiež použiť inú premennú ako nick, napr :heslo atď
-		break;
-	case 'vip_2':
-		$commands[] = 'say §1Hrac :nick si kúpil VIP 2';
-		break;
-	default:
-		exit("Wrong code");
-		break;
+// ================ NASTAVENIE PRIKAZOV ================ //
+if ($action == 'activate') {
+	// ===== AKTIVACIA ===== //
+	switch ($code) {
+		case 'vip_1':
+			$commands[]	= 'say §2Hrac :nick si kúpil VIP 1'; 	// :nick sa automatický nahradí za premennú nick, ktorú zadal hráč
+																// Môžete taktiež použiť inú premennú ako nick, napr :heslo atď
+			$commands[] = 'pex user :nick group set vip1';
+			break;
+		case 'vip_2':
+			$commands[] = 'say §1Hrac :nick si kúpil VIP 2';
+			$commands[] = 'pex user :nick group set vip2';
+			break;
+		default:
+			exit("Wrong code");
+			break;
+	}
 }
+elseif ($action == 'deactivate') {
+	// ===== DEAKTIVACIA ===== //
+	switch ($code) {
+		case 'vip_1':
+			$commands[]	= 'pex user :nick group set default'; 	// :nick sa automatický nahradí za premennú nick, ktorú zadal hráč
+																// Môžete taktiež použiť inú premennú ako nick, napr :heslo atď
+			break;
+		case 'vip_2':
+			$commands[] = 'pex user :nick group set default';
+			break;
+		default:
+			exit("Wrong code");
+			break;
+	}
+}
+else {
+	exit("Wrong action");
+}
+// ================ KONIEC NASTAVENIA PRIKAZOV ================ //
 
 // Call rcon commands
 
