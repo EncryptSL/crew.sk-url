@@ -12,6 +12,7 @@ K vytvorenej bráne priradte VIP callback a vyplňte údaje podľa nasledujúceh
 
 ----------
 **2. Volanie skriptu**
+
 Parametre:
 ```php
 action
